@@ -1,0 +1,23 @@
+3 role
+admin
+buyer
+supplier
+	name - char
+	address - 
+	telephone - num
+	mail - char
+	list of available parts - 
+	buyer comments
+
+Model
+	Catalogue upload/submit - csv/xls format
+		Car part
+			name
+			tag! - 
+				brand, 
+				model, 
+				year
+			picture
+			price
+			list suppliers
+	
