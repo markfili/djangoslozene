@@ -1,0 +1,23 @@
+###############################################################################
+###																			###
+###					nikad ne zaboravi igrati se 						 	###
+###																		 	###
+###############################################################################
+
+				Projekt u Django-u za TVZ i budućnost
+						Auto Dijelovi online
+
+				autori:	Andrija Kranjec
+						Marko Filipović
+
+Za instalaciju projekta potrebito je:
+	1. Python http://www.python.org/
+	2. Sqlite http://www.sqlite.org/
+	3. Django https://docs.djangoproject.com/en/1.5/topics/install/#install-the-django-code
+	- za one koji žele znati više -
+	4. virtualenv i virtualenvwrapper (opis pod 3.)
+
+Za pokretanje servera:
+	1. cd /path/to/djangoslozene/
+	#(later dev) 2. urediti putanje u main/settings.py
+	3. python manage.py runserver
