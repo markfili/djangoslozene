@@ -61,8 +61,8 @@ MEDIA_URL = ''
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/var/www/example.com/static/"
-STATIC_ROOT = ''
-
+STATIC_ROOT = '/home/marko/faks/djangoslozene/dijelovi/static/'
+# /home/marko/faks/djangoslozene/dijelovi/static/
 # URL prefix for static files.
 # Example: "http://example.com/static/", "http://static.example.com/"
 STATIC_URL = '/static/'
@@ -72,6 +72,7 @@ STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
+    # '/home/marko/faks/djangoslozene/dijelovi/templates/', 
 )
 
 # List of finder classes that know how to find static files in
@@ -79,6 +80,7 @@ STATICFILES_DIRS = (
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    # 'django_assets.finders.AssetsFinder'
 #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
@@ -111,7 +113,9 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    '/home/marko/faks/djangoslozene/main/data/templates'
+    # '/home/marko/faks/djangoslozene/main/templates/'
+    # '/home/marko/faks/djangoslozene/dijelovi/templates/'
+    '/home/marko/faks/djangoslozene/dijelovi/static/templates',
 )
 
 INSTALLED_APPS = (
@@ -122,7 +126,8 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.admin',
-    'dijelovi'
+    'dijelovi',
+    # 'django_admin_bootstrapped'
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 )

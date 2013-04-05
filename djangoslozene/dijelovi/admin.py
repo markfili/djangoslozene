@@ -1,5 +1,5 @@
 from django.contrib import admin
-from dijelovi.models import Part, Supplier, PartComments, User
+from dijelovi.models import Part, Supplier, PartComments, User, PartCategory
 
 class CommentsOnParts(admin.TabularInline):
 	model = PartComments
@@ -32,4 +32,10 @@ class UserAdmin(admin.ModelAdmin):
     ]
     search_fields = ['name']
 admin.site.register(User, UserAdmin)
-        
+
+class PartCategoryAdmin(admin.ModelAdmin):
+    fieldsets = [
+            (None, {'fields' : ['name']}),
+            ]
+    search_fields = ['name']
+admin.site.register(PartCategory, PartCategoryAdmin)

@@ -2,10 +2,11 @@ from django.http import HttpResponse, Http404
 from django.shortcuts import render, get_object_or_404
 from django.template import Context, loader
 
-from dijelovi.models import Part, Supplier, PartComments
+from dijelovi.models import Part, Supplier, PartComments, PartCategory
 
 def index(request):
-	return render(request, 'dijelovi/index.html')
+	list_category = PartCategory.objects.all()
+	return render(request, 'dijelovi/index.html', {'list_category': list_category})
 
 def supplier(request):
 	list_names = Supplier.objects.order_by('name')

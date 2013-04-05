@@ -28,12 +28,17 @@ class Supplier(models.Model):
 		return self.name
 
 class PartCategory(models.Model):
-	name = models.CharField(max_length=10)
+	name = models.CharField(max_length=200)
+
+	def __unicode__(self):
+		return self.name
+
 
 class Part(models.Model):
     name = models.CharField(max_length=10)
     year = models.IntegerField(max_length=4)
     supplier = models.ForeignKey(Supplier)
+    part_category = models.ForeignKey(PartCategory)
     part_num = models.CharField(max_length=10)
     date_added = models.DateTimeField('date added')
     # Scomments = models.ForeignKey(PartComments)
