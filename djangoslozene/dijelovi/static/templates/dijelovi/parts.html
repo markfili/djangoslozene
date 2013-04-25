@@ -7,3 +7,8 @@
 {% else %}
 <p>No parts available.</p>
 {% endif %}
+<form name="uploadNewPartsForm" enctype="multipart/form-data" method="POST" action="bulk_upload/">
+	{% csrf_token %}
+	<tr><th><label for="id_file">Choose Excel table to upload:</label></th><td><input id="id_file" name="file" type="file" /></td></tr>
+	<input type="submit"/>
+</form>

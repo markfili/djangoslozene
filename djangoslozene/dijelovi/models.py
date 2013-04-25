@@ -1,6 +1,8 @@
 from django.db import models
 import datetime
+from django.forms.fields import FileField
 from django.utils import timezone
+from django import forms
 
 class User(models.Model):
 	name = models.CharField(max_length=20)
@@ -23,6 +25,7 @@ class Supplier(models.Model):
 	# address = models.CharField(max_length=20)
 	# telephone = models.CharField(max_length=20)
 	# mail = models.CharField(max_length=20)
+
 
 	def __unicode__(self):
 		return self.name
@@ -66,9 +69,5 @@ class PartComments(models.Model):
 	# def last_published(self):
 	# 	return self.pub_date
 
-
-
-
-
-
-
+class UploadFileForm(forms.Form):
+	file = forms.FileField(label='Choose Excel table to upload:')

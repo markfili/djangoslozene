@@ -2,14 +2,15 @@ from django.contrib import admin
 from dijelovi.models import Part, Supplier, PartComments, User, PartCategory
 
 class CommentsOnParts(admin.TabularInline):
-	model = PartComments
-	extra = 1
+    model = PartComments
+    extra = 1
+
 
 class PartAdmin(admin.ModelAdmin):
     # fieldsets = [(Naziv polja, {'fields': ['vrijednost']}),]
         fieldsets = [
         		(None, {'fields': ['name']}),
-        		('Part description', {'fields': ['year', 'supplier', 'date_added', 'part_num']}), # 'classes': ['collapse']}),
+        		('Part description', {'fields': ['part_category', 'year', 'supplier', 'date_added', 'part_num']}), # 'classes': ['collapse']}),
         		# ('Part comments'), {'fields': ['']}]
         ]
         inlines = [CommentsOnParts]

@@ -1,0 +1,7 @@
+<h1>{{ part.name }}</h1>
+<ul>
+{% for partcomment in list_comments %}
+	<u>{{ partcomment.text }}</u> <br>
+		{{ partcomment.pub_date }} <br>
+{% endfor %}
+</ul>

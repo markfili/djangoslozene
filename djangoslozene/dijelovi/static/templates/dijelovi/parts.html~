@@ -1,0 +1,10 @@
+{% if list_parts %}
+<ul>
+	{% for part in list_parts %}
+	<li><a href="/dijelovi/part/{{ part.id }}/">{{ part.name }}</a></li>
+	{% endfor %}
+</ul>
+{% else %}
+<p>No parts available.</p>
+{% endif %}
+<form name="uploadNewPartsForm" method="POST" action=""></form>
