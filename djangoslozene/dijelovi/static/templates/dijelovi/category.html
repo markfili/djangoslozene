@@ -1,4 +1,168 @@
-{{ part_category.name }} <br>
-{% for part in parts_in_category %}
-{{ part.name }}
-{% endfor %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>AutoDijelovi</title>
+    <meta name="viewport" content="width=device-width, initial-scale=0.4">
+    <meta name="description" content="Katalog novih auto dijelova">
+    <meta name="author" content="Marko Filipović & Andrija Kranjec">
+
+    <!-- Le styles -->
+    <link href="/static/assets/css/bootstrap.css" rel="stylesheet">
+    <link href="/static/assets/css/bootstrap-responsive.css" rel="stylesheet">
+
+    <!-- Fav and touch icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/static/assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/static/assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/static/assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="/static/assets/ico/apple-touch-icon-57-precomposed.png">
+    <link rel="shortcut icon" href="/static/assets/ico/favicon.png">
+</head>
+
+<body>
+<!-- Le navbar -->
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container-fluid">
+            <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="brand" href="{% url "index" %}"><strong>AutoDijelovi</strong></a>
+            <div class="nav-collapse collapse">
+                <ul class="nav pull-right">
+                    <li><a href="#signUp">Registriraj se</a></li>
+                    <li class="divider-vertical"></li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown">Prijavi se <strong class="caret"></strong></a>
+                        <div class="dropdown-menu" style="padding: 15px; padding-bottom: 0px;">
+                            <form class="form-signin">
+                                <input class="input-block-level" placeholder="Korisničko ime" type="text">
+                                <input class="input-block-level" placeholder="Lozinka" type="password">
+                                <label class="checkbox"><input value="remember-me" type="checkbox"> Zapamti me</label>
+                                <button class="btn btn-primary" type="submit">Prijava</button>
+                            </form>
+                        </div>
+                    </li>
+                </ul>
+            </div><!--/.nav-collapse -->
+        </div>
+    </div>
+</div>
+
+<!-- Le navigacija -->
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span3">
+            <div class="well sidebar-nav">
+                <ul class="nav nav-list">
+                    <li class="nav-header">Navigacija</li>
+                    <li><a href="#">Povratak</a></li>
+                    <li><a href="#">Početna</a></li>
+                    <li><a href="#">Upload cijenika</a></li>
+                </ul>
+            </div><!--/.well -->
+        </div><!--/span-->
+
+        <!-- Le opis parčeta -->
+        <div class="span9 pull-right">
+            <div class="hero-unit">
+                <div class="row-fluid">
+                    <div class="media">
+                        <a class="pull-left" href="#"><img class="media-object" data-src="holder.js/256x256/industrial"></a>
+                        <div class="media-body">
+                            <h2 class="media-heading">{{ part_category.name }}</h2>
+                            <p>Broj artikala: {{ parts_in_category.count }}</p>
+                            <!-- <p>Godina: 			{{ details.year }}</p>
+                            <p>Boja: 				{% if details.colour == "0" %}
+                                                    Nedostupno
+                                                {% else %}
+                                                    {{ details.colour }}
+                                                {% endif %}</p>
+                            <p>Proizvođač:	{%  if details.manufacturer == null %}
+                                                Nedostupno
+                                            {% else %}
+                                                {{ details.manufacturer }}
+                                            {% endif %}</p>
+                            <p>Kvaliteta: 	{{ details.state }}/5</p> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!--/span-->
+
+
+        <!-- Rezultati pretrage -->
+        <div class="span9 pull-right">
+            <div class="hero-unit">
+                <div class="row-fluid">
+                	{% for part in parts_in_category %}
+                    <div class="media">
+                        <a class="pull-left" href="#"><img class="media-object" data-src="holder.js/64x64/industrial"></a>
+                        <p><a href="#" class="btn btn-large btn-primary disabled pull-right">{{ part.price }}</a></p>
+                        <div class="media-body">
+                            <h4 class="media-heading">{{ part.name }}</h4>
+                            <p>{{ part.year }}</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+<!--                <div class="media">
+                        <a class="pull-left" href="#"><img class="media-object" data-src="holder.js/64x64/industrial"></a>
+                        <p><a href="#" class="btn btn-large btn-primary disabled pull-right">259,99 kn</a></p>
+                        <div class="media-body">
+                            <h4 class="media-heading">Tokić</h4>
+                            <p>Adresa i broj telefona tokića</p>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <a class="pull-left" href="#"><img class="media-object" data-src="holder.js/64x64/industrial"></a>
+                        <p><a href="#" class="btn btn-large btn-primary disabled pull-right">359,99 kn</a></p>
+                        <div class="media-body">
+                            <h4 class="media-heading">Filipović oldtajmeri</h4>
+                            <p>Adresa i broj telefona Filipović Oldtajmeri</p>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <a class="pull-left" href="#"><img class="media-object" data-src="holder.js/64x64/industrial"></a>
+                        <p><a href="#" class="btn btn-large btn-primary disabled pull-right">359,99 kn</a></p>
+                        <div class="media-body">
+                            <h4 class="media-heading">Filipović oldtajmeri</h4>
+                            <p>Adresa i broj telefona Filipović Oldtajmeri</p>
+                        </div>
+                    </div>
+ -->            </div>
+            </div>
+        </div><!--/span-->
+    </div><!--/row-->
+
+    <hr>
+
+</div><!--/.fluid-container-->
+<div class="footer">
+    <footer>
+        <p>&copy; Marko Filipović & Andrija Kranjec | Složeni Aplikacijski Programi @TVZ 2013</p>
+    </footer>
+</div>
+
+<!-- Le javascript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="/static/assets/js/jquery.js"></script>
+<script src="/static/assets/js/bootstrap-transition.js"></script>
+<script src="/static/assets/js/bootstrap-alert.js"></script>
+<script src="/static/assets/js/bootstrap-modal.js"></script>
+<script src="/static/assets/js/bootstrap-dropdown.js"></script>
+<script src="/static/assets/js/bootstrap-scrollspy.js"></script>
+<script src="/static/assets/js/bootstrap-tab.js"></script>
+<script src="/static/assets/js/bootstrap-tooltip.js"></script>
+<script src="/static/assets/js/bootstrap-popover.js"></script>
+<script src="/static/assets/js/bootstrap-button.js"></script>
+<script src="/static/assets/js/bootstrap-collapse.js"></script>
+<script src="/static/assets/js/bootstrap-carousel.js"></script>
+<script src="/static/assets/js/bootstrap-typeahead.js"></script>
+<script src="/static/assets/js/holder/holder.js"></script>
+
+</body>
+</html>

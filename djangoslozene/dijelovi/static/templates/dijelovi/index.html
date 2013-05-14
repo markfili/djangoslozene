@@ -30,9 +30,10 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="brand" href="#index"><strong>AutoDijelovi</strong></a>
+          <a class="brand" href="{% url "index" %}"><strong>AutoDijelovi</strong></a>
           <div class="nav-collapse collapse">
             <ul class="nav pull-right">
+              <li><a href="part/bulk_upload">Dodaj masovno artikle</a></li>
               <li><a href="#signUp">Registriraj se</a></li>
               <li class="divider-vertical"></li>
               <li class="dropdown">
@@ -60,7 +61,7 @@
             <ul class="nav nav-list">
               <li class="nav-header">Kategorije</li>
               {% for category in list_category%}
-              <li><a href="/category/{{ category.id }}">{{ category.name }}</a></li>
+              <li><a href="category/{{ category.id }}">{{ category.name }}</a></li>
               {% endfor %}
 <!--               <li><a href="#">Kategorija II</a></li>
               <li><a href="#">Kategorija III</a></li>
@@ -80,56 +81,65 @@
         <div class="span9">
           <div class="hero-unit">
 						<div class="row-fluid">
+              {% for part in part_by_date %}
 							<div class="span3">
-								<a href="#"><img class="thumbnail" data-src="holder.js/64x64" src="/static/assets/img/example-parts/wheel.png"></a>
-								<h4>Zamjenski kotač</h4>
-								<p><a href="#" class="btn btn-large btn-primary disabled">359,99 kn</a></p>
-								<p><a class="btn" href="#">Više &raquo;</a></p>
+                {% if part.image %}
+								<a href="part/{{ part.id }}"><img class="thumbnail" data-src="holder.js/64x64" src="{{ part.image.url }}"></a>
+								{% else %}
+                <a href="part/{{ part.id }}"><img class="thumbnail" data-src="holder.js/64x64" src="/static/assets/img/example-parts/freemason.gif"></a>
+                {% endif %}
+                <h4>{{ part.name }}</h4>
+								<p><a href="part/{{ part.id }}" class="btn btn-large btn-primary disabled">{{ part.price }}</a></p>
+								<p><a class="btn" href="part/{{ part.id }}">Više &raquo;</a></p>
 							</div><!--/span-->
-							<div class="span3">
+              {% endfor %}
+							<!-- <div class="span3">
 								<a href="#"><img class="thumbnail" data-src="holder.js/64x64" src="/static/assets/img/example-parts/key.png"></a>
 								<h4>Zamjenski ključ</h4>
 								<p><a href="#" class="btn btn-large btn-primary disabled">359,99 kn</a></p>
 								<p><a class="btn" href="#">Više &raquo;</a></p>
-							</div><!--/span-->
+							</div><!--/span- ->
 							<div class="span3">
 								<a href="#"><img class="thumbnail" data-src="holder.js/64x64" src="/static/assets/img/example-parts/clip.png"></a>
 								<h4>Zamjenski klip</h4>
 								<p><a href="#" class="btn btn-large btn-primary disabled">359,99 kn</a></p>
 								<p><a class="btn" href="#">Više &raquo;</a></p>
-							</div><!--/span-->
+							</div><!--/span- ->
 							<div class="span3">
 								<a href="#"><img class="thumbnail" data-src="holder.js/64x64" src="/static/assets/img/example-parts/flare.png"></a>
 								<h4>Svjećice</h4>
 								<p><a href="#" class="btn btn-large btn-primary disabled">359,99 kn</a></p>
 								<p><a class="btn" href="#">Više &raquo;</a></p>
-							</div><!--/span-->
+							</div><!--/span- -> -->
 						</div>
           </div>
 				</div>
 				
 				<!-- La pretraga -->
 				<div class="span9 pull-right">
-					<form class="form-inline pagination-centered" method="POST" action="/dijelovi/search/">{% csrf_token %}
+					<form class="form-inline pagination-centered" method="POST" action="/dijelovi/">{% csrf_token %}
 						<input class="input-xxlarge" type="text" name="inquiry" placeholder="Započni pretragu..."/> 				
 						<button class="btn btn-primary btn-large" type="submit">&nbsp;&nbsp;&nbsp;Search&nbsp;&nbsp;&nbsp;</button>
 					</form>
 				</div>
 					
 				<!-- Rezultati pretrage -->
-        {{ message }}
-        <strong>Tražili ste {{ inquiry }}</strong>
-        {% if parts %}
+        {% if parts == '' %}
+        <strong>{{ inquiry_text }}</strong>
+        {% elif parts == '0' %}
+        <strong>{{ inquiry_text }}</strong>
+        {% else %}
+        <strong>{{ inquiry_text }}</strong>
         <div class="span9 pull-right">
           <div class="hero-unit">
 						<div class="row-fluid">
   		        {% for part in parts %}
               <div class="media">
 								<a class="pull-left" href="#"><img class="media-object" data-src="holder.js/64x64/industrial"></a>
-								<p><a href="/part/{{ part.id }}" class="btn btn-large btn-primary disabled pull-right">359,99</a></p>
+                <p><a href="part/{{ part.id }}" class="btn btn-large btn-primary disabled pull-right">{{ part.price }}</a></p>
 								<div class="media-body">
 									<h4 class="media-heading">{{ part.name }}</h4>
-									<p>{{ part.part_category }}</p>
+									<p>{% if part.part_category %} Kat: {{ part.part_category }}{% else %} Broj artikala: {{ part.part_set.count }} {% endif %}</p>
 								</div>
 							</div>
 							{% endfor %}
@@ -172,20 +182,20 @@
     <!-- Le javascript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="../assets/js/jquery.js"></script>
-    <script src="../assets/js/bootstrap-transition.js"></script>
-    <script src="../assets/js/bootstrap-alert.js"></script>
-    <script src="../assets/js/bootstrap-modal.js"></script>
-    <script src="../assets/js/bootstrap-dropdown.js"></script>
-    <script src="../assets/js/bootstrap-scrollspy.js"></script>
-    <script src="../assets/js/bootstrap-tab.js"></script>
-    <script src="../assets/js/bootstrap-tooltip.js"></script>
-    <script src="../assets/js/bootstrap-popover.js"></script>
-    <script src="../assets/js/bootstrap-button.js"></script>
-    <script src="../assets/js/bootstrap-collapse.js"></script>
-    <script src="../assets/js/bootstrap-carousel.js"></script>
-    <script src="../assets/js/bootstrap-typeahead.js"></script>
-		<script src="../assets/js/holder/holder.js"></script>
+    <script src="/static/assets/js/jquery.js"></script>
+    <script src="/static/assets/js/bootstrap-transition.js"></script>
+    <script src="/static/assets/js/bootstrap-alert.js"></script>
+    <script src="/static/assets/js/bootstrap-modal.js"></script>
+    <script src="/static/assets/js/bootstrap-dropdown.js"></script>
+    <script src="/static/assets/js/bootstrap-scrollspy.js"></script>
+    <script src="/static/assets/js/bootstrap-tab.js"></script>
+    <script src="/static/assets/js/bootstrap-tooltip.js"></script>
+    <script src="/static/assets/js/bootstrap-popover.js"></script>
+    <script src="/static/assets/js/bootstrap-button.js"></script>
+    <script src="/static/assets/js/bootstrap-collapse.js"></script>
+    <script src="/static/assets/js/bootstrap-carousel.js"></script>
+    <script src="/static/assets/js/bootstrap-typeahead.js"></script>
+		<script src="/static/assets/js/holder/holder.js"></script>
 
   </body>
 </html>

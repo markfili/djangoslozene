@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -30,7 +30,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="brand" href="{% url "index"%}"><strong>AutoDijelovi</strong></a>
+            <a class="brand" href="{% url "index" %}"><strong>AutoDijelovi</strong></a>
             <div class="nav-collapse collapse">
                 <ul class="nav pull-right">
                     <li><a href="#signUp">Registriraj se</a></li>
@@ -73,9 +73,10 @@
                     <div class="media">
                         <a class="pull-left" href="#"><img class="media-object" data-src="holder.js/256x256/industrial"></a>
                         <div class="media-body">
-                            <h2 class="media-heading">{{ details.name }}</h2>
-                            <p>Godina: 			{{ details.year }}</p>
-                            <p>Boja: 				{% if details.colour == "0" %}
+                            <h2 class="media-heading">{{ supplier.name }}</h2>
+                            <p>Adresa: {{ supplier.address }}</p>
+                            <p>Godina: 			{{ supplier.phone }}</p>
+                            <!--<p>Boja: 				{% if details.colour == "0" %}
                                                     Nedostupno
                                                 {% else %}
                                                     {{ details.colour }}
@@ -85,7 +86,7 @@
                                             {% else %}
                                                 {{ details.manufacturer }}
                                             {% endif %}</p>
-                            <p>Kvaliteta: 	{{ details.state }}/5</p>
+                            <p>Kvaliteta: 	{{ details.state }}/5</p> -->
                         </div>
                     </div>
                 </div>
@@ -97,15 +98,17 @@
         <div class="span9 pull-right">
             <div class="hero-unit">
                 <div class="row-fluid">
+                	{% for part in parts_in_category %}
                     <div class="media">
                         <a class="pull-left" href="#"><img class="media-object" data-src="holder.js/64x64/industrial"></a>
-                        <p><a href="#" class="btn btn-large btn-primary disabled pull-right">159,99 kn</a></p>
+                        <p><a href="#" class="btn btn-large btn-primary disabled pull-right">{{ part.price }}</a></p>
                         <div class="media-body">
-                            <h4 class="media-heading">Auto krešo</h4>
-                            <p>Adresa i broj telefona Kreše</p>
+                            <h4 class="media-heading">{{ part.name }}</h4>
+                            <p>{{ part.year }}</p>
                         </div>
                     </div>
-                    <div class="media">
+                    {% endfor %}
+<!--                <div class="media">
                         <a class="pull-left" href="#"><img class="media-object" data-src="holder.js/64x64/industrial"></a>
                         <p><a href="#" class="btn btn-large btn-primary disabled pull-right">259,99 kn</a></p>
                         <div class="media-body">
@@ -129,7 +132,7 @@
                             <p>Adresa i broj telefona Filipović Oldtajmeri</p>
                         </div>
                     </div>
-                </div>
+ -->            </div>
             </div>
         </div><!--/span-->
     </div><!--/row-->
