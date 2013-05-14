@@ -1,0 +1,32 @@
+/dijelovi/ (index)
+	izlistat dijelove + slike - da (slike još ubacit)
+	izlistat kategorije - da
+	sredit search - da
+	
+
+/dijelovi/supplier/
+	napraviti template
+	izlistati podatke o nabavljaču 
+
+/dijelovi/part/$
+	-nepotrebno-
+
+/dijelovi/part/--part_id-- (part details)
+	sredit slike, poveznice i ispis nabavljača
+	ugradit ispis PartComments-a
+
+/dijelovi/category/--category_id--
+	napraviti template
+	po kategoriji izlistat dijelove + slike
+		link na /dijelovi/part/$
+
+/dijelovi/bulk_upload/
+	povezati upload XLS-a sa user sučeljem
+
+/dijelovi/search/
+	--nepotrebno--
+	
+
+
+handler403, 404, 500
+search - manufacturer
