@@ -1,8 +1,12 @@
 from django.views.decorators.csrf import csrf_exempt
+from django.core.context_processors import csrf
 from django.http import HttpResponse
 from django.http.response import HttpResponseRedirect
 from django.template import RequestContext
 from django.shortcuts import render, get_object_or_404, render_to_response
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import UserCreationForm
 from django import forms
 from datetime import datetime
 import datetime
@@ -122,7 +126,7 @@ def read_excel(file):
 class UploadFileForm(forms.Form):
     file = forms.FileField()
 
-
+@login_required
 def bulk_upload(request):
     if request.method == 'POST' and request.FILES:
         form = UploadFileForm(request.POST, request.FILES)
@@ -158,11 +162,37 @@ def search(request):
         return HttpResponse(message)
 
 
-@csrf_exempt
-def gps(request):
-    if request.method == "POST":
-        mess = request.read()
-        print mess
-        return HttpResponse(200)
+def login_view(request):
+    username = request.POST['username']
+    password = request.POST['password']
+    user = authenticate(username=username, password=password)
+    if user is not None:
+        if user.is_active:
+            login(request, user)
+            return HttpResponseRedirect('/dijelovi/')
+        else:
+            return HttpResponseRedirect('/dijelovi/inactive_user.html')
     else:
-        return HttpResponse("nema")
+        error = 'Netocni podaci za login'
+        return HttpResponseRedirect('/dijelovi/')
+
+def logout_view(request):
+    logout(request)
+    message = "ok"
+    return HttpResponseRedirect('/dijelovi/', {'message':message})
+
+def register_view(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/dijelovi/register_success/')
+    args = {}
+    args.update(csrf(request))
+
+    args['form'] = UserCreationForm()
+    return render_to_response('dijelovi/register.html', args)
+
+
+def register_success_view(request):
+    return render_to_response('dijelovi/register_success.html')

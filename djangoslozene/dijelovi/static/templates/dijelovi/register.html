@@ -1,0 +1,7 @@
+<h2>Register</h2>
+
+<form action="/dijelovi/register/" method="post">
+{% csrf_token %}
+{{ form }}
+<input type="submit" next="{% url "register" %} value="Register" />
+</form>

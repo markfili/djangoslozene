@@ -1,4 +1,5 @@
 from django.conf.urls import patterns, url
+from django.contrib.auth.views import login, logout
 
 from dijelovi import views
 
@@ -11,5 +12,8 @@ urlpatterns = patterns('',
 	url(r'^category/(?P<category_id>\d+)/$', views.part_category, name='part_category'),
 	url(r'^part/bulk_upload/$', views.bulk_upload, name='bulk_upload'),
 	url(r'^search/$', views.search, name='search'),
-    url(r'^gps/test/$', views.gps, name='gps'),
+	url(r'^login/$', views.login_view, name='login'),
+	url(r'^logout/$', views.logout_view, name='logout'),
+	url(r'^register/$', views.register_view, name='register'),
+	url(r'^register_success/$', views.register_success_view, name="register_success"),
 )

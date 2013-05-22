@@ -31,23 +31,32 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="brand" href="{% url "index" %}"><strong>AutoDijelovi</strong></a>
-            <div class="nav-collapse collapse">
-                <ul class="nav pull-right">
-                    <li><a href="#signUp">Registriraj se</a></li>
-                    <li class="divider-vertical"></li>
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown">Prijavi se <strong class="caret"></strong></a>
-                        <div class="dropdown-menu" style="padding: 15px; padding-bottom: 0px;">
-                            <form class="form-signin">
-                                <input class="input-block-level" placeholder="Korisničko ime" type="text">
-                                <input class="input-block-level" placeholder="Lozinka" type="password">
-                                <label class="checkbox"><input value="remember-me" type="checkbox"> Zapamti me</label>
-                                <button class="btn btn-primary" type="submit">Prijava</button>
-                            </form>
-                        </div>
-                    </li>
-                </ul>
-            </div><!--/.nav-collapse -->
+                      <div class="nav-collapse collapse">
+            <ul class="nav pull-right">
+              {% if user.is_authenticated %}
+              <li><a href="part/bulk_upload">Dodaj masovno artikle</a></li>
+              <li class="divider-vertical"></li>
+               <li><a href="{% url "logout" %}">Ja sam {{ user.username.title }}, odlogiraj me</a></li>
+                  {% else %}
+                  <li><a href="#signUp">Registriraj se</a></li>
+                  <li class="divider-vertical"></li>
+              <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown">Prijavi se <strong class="caret"></strong></a>
+                <div class="dropdown-menu" style="padding: 15px; padding-bottom: 0px;">
+                  <form class="form-signin" action="{% url 'login' %}" method="post">
+                    {% csrf_token %}
+                    <input class="input-block-level" placeholder="Korisničko ime" type="text" id="username" name="username">
+                    <input class="input-block-level" placeholder="Lozinka" type="password" id="password" name="password">
+                    <label class="checkbox"><input value="remember-me" type="checkbox"> Zapamti me</label>
+                    <button class="btn btn-primary" type="submit" value="{% url 'index' %}">Prijava</button>
+                    {% endif %}
+                    <!-- <input type="hidden" name="text" value=""/> -->
+
+                  </form>
+                </div>
+              </li>
+            </ul>
+          </div><!--/.nav-collapse -->
         </div>
     </div>
 </div>
@@ -71,7 +80,7 @@
             <div class="hero-unit">
                 <div class="row-fluid">
                     <div class="media">
-                        <a class="pull-left" href="#"><img class="media-object" data-src="holder.js/256x256/industrial"></a>
+                        <a class="pull-left" href=""><img class="media-object" data-src="holder.js/256x256/industrial"></a>
                         <div class="media-body">
                             <h2 class="media-heading">{{ part_category.name }}</h2>
                             <p>Broj artikala: {{ parts_in_category.count }}</p>
@@ -100,7 +109,7 @@
                 <div class="row-fluid">
                 	{% for part in parts_in_category %}
                     <div class="media">
-                        <a class="pull-left" href="#"><img class="media-object" data-src="holder.js/64x64/industrial"></a>
+                        <a class="pull-left" href="/dijelovi/part/{{ part.id }}"><img class="media-object" data-src="{{ part.image }}"></a>
                         <p><a href="#" class="btn btn-large btn-primary disabled pull-right">{{ part.price }}</a></p>
                         <div class="media-body">
                             <h4 class="media-heading">{{ part.name }}</h4>
